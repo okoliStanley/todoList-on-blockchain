@@ -42,7 +42,8 @@ App = {
       },
 
       loadAccount: async () => {
-          App.account = await web3.eth.getAccounts();        
+        const accounts = await web3.eth.getAccounts();
+        App.account = accounts[0];
 
       },
 
@@ -103,6 +104,12 @@ App = {
             }           
       },
 
+      createTask: async () => {
+            App.setLoading(true)
+            const content =  $('#newTask').val();
+            await App.todoList.createTask(content, { from: App.account })
+            window.location.reload()
+      },
       setLoading: (boolean) => {
           App.loading = boolean;
           const loader = $('#loader')
